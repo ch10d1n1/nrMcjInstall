@@ -26,6 +26,23 @@ Este repositório contém os arquivos necessários para realizar a **instalaçã
 
 ---
 
+## 📂 Instalando repositórios individuais
+
+Além do instalador completo, você pode usar o script auxiliar [`repo-install.bat`](repo-install.bat) para instalar ou reinstalar um repositório específico.
+
+### ✅ O que `repo-install.bat` faz:
+
+- Solicita o nome do repositório desejado (ex: `nr0001_mcConfeccoes`)
+- Remove qualquer instalação anterior do projeto (se existir)
+- Clona o repositório informado do GitHub
+- Instala as dependências com `npm install`
+- Define o projeto como ativo no Node-RED
+- Reinicia a instância via **PM2**, se instalado
+
+> Útil para reinstalar projetos sem precisar executar toda a instalação base.
+
+---
+
 ## 🌐 Requisitos
 
 - 💻 Windows 10 ou superior
@@ -39,5 +56,6 @@ Este repositório contém os arquivos necessários para realizar a **instalaçã
 - O instalador clona e configura projetos a partir de repositórios GitHub
 - O repositório `nrMcjConfig` deve estar acessível (público ou com token, se privado)
 - Os dados serão instalados em:
+
 %USERPROFILE%.node-red\projects
 
