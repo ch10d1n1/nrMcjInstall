@@ -32,7 +32,7 @@ Além do instalador completo, você pode usar o script auxiliar [`repo-install.b
 
 ### ✅ O que `repo-install.bat` faz:
 
-- Solicita o nome do repositório desejado (ex: `nr0001_mcConfeccoes`)
+- Solicita o nome do repositório desejado (ex: `nr0000_testeRepo`)
 - Remove qualquer instalação anterior do projeto (se existir)
 - Clona o repositório informado do GitHub
 - Instala as dependências com `npm install`
