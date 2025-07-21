@@ -48,7 +48,7 @@ echo Instalando repositório do projeto...
 set /p REPO_NAME=Digite o nome do repositório:
 :: Verifica se a variável REPO_NAME está vazia
 if "%REPO_NAME%"=="" (
-    set "REPO_NAME=testeRepo"
+    set "REPO_NAME=nr0000_testeRepo"
     echo Nenhum nome digitado. Instalando repositório padrão: !REPO_NAME!
 )
 set "TARGET_DIR=%USERPROFILE%\.node-red\projects\!REPO_NAME!"
