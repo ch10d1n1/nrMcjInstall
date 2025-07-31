@@ -90,7 +90,7 @@ echo }
 
 echo ✅ Projeto ativo definido como "%REPO_NAME%"
 echo --------------------------
-::8te. Instalar PM2 para inicializacao automática
+::8. Instalar PM2 para inicializacao automática
 echo Instalando e configurando PM2...
 call npm install pm2 -g
 call npm install pm2-windows-startup -g
