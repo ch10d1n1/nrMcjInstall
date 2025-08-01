@@ -43,10 +43,10 @@ copy .\nrMcjConfig\settings.js "%USERPROFILE%\.node-red\" /Y
 xcopy .\nrMcjConfig\mcj-settings "%USERPROFILE%\.node-red\mcj-settings" /E /I /Y
 rmdir /S /Q nrMcjConfig
 if not exist "%USERPROFILE%\.node-red\mcj-SQLite" (
-    echo Pasta mcj-SQLite já existe...
+    echo Pasta mcj-SQLite não existe. Criando...
     mkdir "%USERPROFILE%\.node-red\mcj-SQLite"
 ) else (
-    echo Pasta mcj-SQLite não existe. Criando...
+    echo Pasta mcj-SQLite já existe.
 )
 echo --------------------------
 ::5. Instalar o repositório do projeto
