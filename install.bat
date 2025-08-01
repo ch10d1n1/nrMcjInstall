@@ -96,8 +96,11 @@ call npm install pm2 -g
 call npm install pm2-windows-startup -g
 call pm2-startup install
 call pm2 delete all
-::call pm2 start "%APPDATA%\npm\node_modules\node-red\red.js" --name APLICATIVO --interpreter node
-call pm2 start "%APPDATA%\npm\node-red.cmd" --name "%REPO_NAME%" -- --port 1880 --userDir "%USERPROFILE%\.node-red"
+call pm2 start "%APPDATA%\npm\node_modules\node-red\red.js" ^
+  --name "%REPO_NAME%" ^
+  --interpreter node ^
+  --cwd "%USERPROFILE%\.node-red" ^
+  -- --port 1880 --userDir "%USERPROFILE%\.node-red"
 call pm2 save
 echo --------------------------
 echo CONCLUÍDO!
