@@ -42,6 +42,12 @@ echo Instalando repositório base...
 copy .\nrMcjConfig\settings.js "%USERPROFILE%\.node-red\" /Y
 xcopy .\nrMcjConfig\mcj-settings "%USERPROFILE%\.node-red\mcj-settings" /E /I /Y
 rmdir /S /Q nrMcjConfig
+if not exist "%USERPROFILE%\.node-red\mcj-SQLite" (
+    echo Pasta mcj-SQLite já existe...
+    mkdir "%USERPROFILE%\.node-red\mcj-SQLite"
+) else (
+    echo Pasta mcj-SQLite não existe. Criando...
+)
 echo --------------------------
 ::5. Instalar o repositório do projeto
 echo Instalando repositório do projeto...
@@ -97,7 +103,7 @@ call npm install pm2-windows-startup -g
 call pm2-startup install
 call pm2 delete all
 call pm2 start "%APPDATA%\npm\node_modules\node-red\red.js" ^
-  --name "%REPO_NAME%" ^
+  --name "MCJ-APP%" ^
   --interpreter node ^
   --cwd "%USERPROFILE%\.node-red" ^
   -- --port 1880 --userDir "%USERPROFILE%\.node-red"
