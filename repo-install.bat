@@ -56,7 +56,11 @@ echo --------------------------
 ::8te. Instalar PM2 para inicializacao automática
 echo Configurando PM2...
 call pm2 delete all
-call pm2 start "%APPDATA%\npm\node_modules\node-red\red.js" --name APLICATIVO --interpreter node
+call pm2 start "%APPDATA%\npm\node_modules\node-red\red.js" ^
+  --name "MCJ-APP%" ^
+  --interpreter node ^
+  --cwd "%USERPROFILE%\.node-red" ^
+  -- --port 1880 --userDir "%USERPROFILE%\.node-red"
 call pm2 save
 echo --------------------------
 echo CONCLUÍDO!
