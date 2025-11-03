@@ -75,11 +75,43 @@ if exist "%USERPROFILE%\.node-red\projects\%REPO_NAME%" (
     exit
 )
 echo --------------------------
-::6. Instalar as depêndencias do projeto
-echo Instalando as depêndencias do projeto...
-pushd "%USERPROFILE%\.node-red\projects\%REPO_NAME%"
-call npm install
-popd
+::6. Instalar as dependências do projeto no userDir (.node-red)
+echo Instalando dependencias do projeto no userDir (.node-red)...
+set "PROJ_DIR=%USERPROFILE%\.node-red\projects\%REPO_NAME%"
+
+if exist "%PROJ_DIR%\package.json" (
+  echo - Lendo "%PROJ_DIR%\package.json"...
+  rem Gera lista "pacote@versao" (dependencies + optionalDependencies) e instala no userDir
+  for /f "usebackq delims=" %%p in (`
+    node -e "const fs=require('fs');const p=process.env.PROJ_DIR+'\\package.json';if(fs.existsSync(p)){const j=JSON.parse(fs.readFileSync(p,'utf8'));const deps={...(j.dependencies||{}),...(j.optionalDependencies||{})};for(const [k,v] of Object.entries(deps)){console.log(k+'@'+v);}}"
+  `) do (
+    echo   -> Instalando %%p em "%USERPROFILE%\.node-red\node_modules"
+    call npm install --prefix "%USERPROFILE%\.node-red" "%%p"
+    if %errorlevel% neq 0 (
+      echo ❌ Falha ao instalar %%p
+      pause
+      exit /b 1
+    )
+  )
+) else (
+  echo ⚠️ package.json do projeto nao encontrado. Pulando instalacao de dependencias especificas do projeto.
+)
+
+rem (Opcional) garantir que o userDir tambem instale/atualize o que estiver no seu proprio package.json
+if exist "%USERPROFILE%\.node-red\package.json" (
+  echo Rodando npm install no userDir para garantir consistencia...
+  pushd "%USERPROFILE%\.node-red"
+  call npm install
+  popd
+)
+
+rem Evitar node_modules dentro do projeto (duplicidade)
+if exist "%PROJ_DIR%\node_modules" (
+  echo Removendo node_modules local do projeto para evitar duplicidade...
+  rmdir /S /Q "%PROJ_DIR%\node_modules"
+)
+echo ✅ Dependencias centralizadas no %USERPROFILE%\.node-red
+echo --------------------------
 ::7. Configurar projeto ativo
 echo Configurando projeto ativo no Node-RED...
 set "PROJECTS_CONFIG=%USERPROFILE%\.node-red\.config.projects.json"
@@ -112,3 +144,4 @@ echo --------------------------
 echo CONCLUÍDO!
 echo --------------------------
 pause
+
